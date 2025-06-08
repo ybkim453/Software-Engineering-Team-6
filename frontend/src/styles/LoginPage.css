@@ -1,0 +1,94 @@
+.login-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 800px;
+  padding-top: 70px;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 500px;
+  min-width: 500px;
+  background-color: #ffffff;
+  padding: 50px 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-text {
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.welcome-text p {
+  margin: 20px 0 0 0;
+  font-size: 18px;
+  color: #989da4;
+}
+
+form input {
+  width: 93.5%;
+  padding: 15px;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+form button {
+  width: 100%;
+  padding: 15px;
+  margin-top: 30px;
+  font-size: 18px;
+  background-color: #2962ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:focus {
+  outline: none;
+}
+
+form button:hover {
+    background-color: #1541bb;
+}
+
+.signup-btn {
+  display: block;
+  width: 100%;
+  margin-top: 3px;
+  padding: 10px;
+  text-align: center;
+  background: none;
+  border: none;
+  color: #767a85;
+  cursor: pointer;
+  font-size: 16px;
+}
+  
+.signup-btn:focus {
+    outline: none;
+}
+  

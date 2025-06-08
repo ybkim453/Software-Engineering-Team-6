@@ -1,0 +1,40 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  min-width: 800px;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #2962ff;
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: 50px;
+}
+
+.icon img {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  object-fit: contain;
+  padding: 6px;
+  background-color: #ffffff;
+}
+  
