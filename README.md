@@ -2,7 +2,7 @@
 
 본 레포지토리는 사용자가 원하는 날짜에 예약을 할 수 있는 웹 기반 레스토랑 예약 시스템을 구현하는 코드를 제공한다.
 
-
+---
 ## 프로젝트 개요
 * **목표**: 사용자가 원하는 날짜에 예약을 할 수 있는 웹 기반 레스토랑 예약 시스템 웹사이트 만들기
 * **주요 기능**
@@ -30,15 +30,15 @@
 
 #### Frontend
 ```bash
-cd frontend\restaurant_reservation
+cd frontend
 npm install
 npm run dev
 ```
 
 #### Backend
 ```bash
+cd backend
 pip install -r requirements.txt
-python backend/main.py
 ```
 
 ### 2. 실행
@@ -50,58 +50,43 @@ npm run dev
 
 #### Backend
 ```bash
-python backend/main.py
+python main.py
 ```
 
 
 ## 폴더 구조
 ```
 📁 Software-Engineering-Team-6/
-├── backend/
-│   ├── app.py                          # Flask 앱 실행 진입점
-│   ├── db.py                           # DB 연결 및 초기화
-│   ├── models/
-│   │   ├── user_model.py               # 사용자 모델
-│   │   ├── table_model.py              # 테이블 모델
-│   │   └── reservation_model.py        # 예약 모델
-│   ├── routes/
-│   │   ├── auth_routes.py              # 회원가입, 로그인
-│   │   ├── table_routes.py             # 테이블 조회
-│   │   └── reservation_routes.py       # 예약 생성/취소
-│   ├── services/
-│   │   ├── auth_service.py             # 인증 로직
-│   │   ├── table_service.py            # 테이블 로직
-│   │   └── reservation_service.py      # 예약 로직
-│   ├── utils/
-│   │   └── validators.py               # 공통 유효성 검사
-│   └── requirements.txt                # 필요 패키지 목록
+├── backend/                                       # 🐍 Flask 백엔드
+│   ├── app.py                                     # Flask 실행 파일
+│   ├── database/                                  # DB 연결 및 초기화
+│   │   └── db.py               
+│   ├── models/                                    # SQLAlchemy 모델 정의
+│   ├── routes/                                    # Flask 라우팅
+│   ├── services/                                  # 비즈니스 로직 처리
+│   ├── utils/                                     # 공통 유틸리티 함수
+│   │   └── validators.py               
+│   └── requirements.txt                           # 필요 패키지 목록
 │
-└── frontend/
-    └── restaurant_reservation/
-        ├── public/
-        ├── src/
-        │   ├── pages/
-        │   │   ├── LoginPage.jsx
-        │   │   ├── RegisterPage.jsx
-        │   │   ├── ReservationMainPage.jsx
-        │   │   └── NotFoundPage.jsx
-        │   ├── components/
-        │   │   ├── LayoutHeader.jsx
-        │   │   ├── TableListView.jsx
-        │   │   ├── TableCardItem.jsx
-        │   │   ├── ReservationInputForm.jsx
-        │   │   └── CancelReservationPopup.jsx
-        │   ├── api/
-        │   │   ├── api_auth.js
-        │   │   ├── api_tables.js
-        │   │   └── api_reservations.js
-        │   ├── utils/
-        │   │   └── formValidators.js
-        │   ├── App.jsx
-        │   ├── main.jsx
-        │   └── index.css
-        ├── index.html
-        └── vite.config.js
+├── frontend/                                      # ⚛️ React 프론트엔드
+│   └── restaurant_reservation/
+│       ├── public/
+│       │   └── vite.svg
+│       ├── src/
+│       │   ├── assets/                            # 이미지, 아이콘 등
+│       │   ├── components/                        # 공통 컴포넌트
+│       │   ├── contexts/                          # 전역 상태
+│       │   ├── pages/                             # 페이지별 컴포넌트
+│       │   ├── routes/                            # react-router-dom 라우팅
+│       │   ├── services/                          # axios 기반 API 호출 모듈
+│       │   ├── styles/                            # 전역 스타일 및 모듈 CSS
+│       │   ├── App.jsx
+│       │   ├── main.jsx
+│       │   └── index.css
+│       ├── index.html
+│       └── vite.config.js
+├── rest_client/                                   # REST API 테스트용
+└── README.md
 ```
 
 
