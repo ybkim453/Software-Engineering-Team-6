@@ -1,0 +1,23 @@
+# python
+.venv
+__pycache__/
+
+# uv
+.python-version
+.uv/
+
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+build/
+
+# 일반 설정
+*.log
+*.sqlite3
+*.csv
+*.xlsx
+*.swp
+*.bak
+*.swo
