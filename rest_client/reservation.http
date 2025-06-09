@@ -1,0 +1,94 @@
+### Get table status for specific date
+GET http://localhost:8080/api/reservations/tables
+Content-Type: application/json
+
+{
+    "date": "2024-03-20",
+    "timeSlot": "lunch"
+}
+
+### Make a reservation
+POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
+{
+    "userid": "user1",
+    "reservationDate": "2025-06-09",
+    "timeSlot": "lunch",
+    "tableNumber": 5,
+    "customerName": "홍길동",
+    "phoneNumber": "010-1234-5678",
+    "cardBank": "신한",
+    "cardNumber": "1234-5678-9012-3456",
+    "guestCount": 6
+}
+
+### Make a reservation 2
+POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
+{
+    "userid": "user1",
+    "reservationDate": "2025-06-09",
+    "timeSlot": "lunch",
+    "tableNumber": 8,
+    "customerName": "홍길동",
+    "phoneNumber": "010-1234-5678",
+    "cardBank": "신한",
+    "cardNumber": "1234-5678-9012-3456",
+    "guestCount": 3
+}
+
+### Make a reservation 3
+POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
+{
+    "userid": "user2",
+    "reservationDate": "2025-06-09",
+    "timeSlot": "lunch",
+    "tableNumber": 9,
+    "customerName": "홍길동",
+    "phoneNumber": "010-1234-5678",
+    "cardBank": "신한",
+    "cardNumber": "1234-5678-9012-3456",
+    "guestCount": 3
+}
+
+### Make a reservation 4
+POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
+{
+    "userid": "user1",
+    "reservationDate": "2025-06-09",
+    "timeSlot": "lunch",
+    "tableNumber": 1,
+    "customerName": "홍길동",
+    "phoneNumber": "010-1234-5678",
+    "cardBank": "신한",
+    "cardNumber": "1234-5678-9012-3456",
+    "guestCount": 5
+}
+
+### Make a reservation 5
+POST http://localhost:8080/api/reservations
+Content-Type: application/json
+
+{
+    "userid": "user1",
+    "reservationDate": "2025-06-12",
+    "timeSlot": "lunch",
+    "tableNumber": 11,
+    "customerName": "홍길동",
+    "phoneNumber": "010-1234-5678",
+    "cardBank": "신한",
+    "cardNumber": "1234-5678-9012-3456",
+    "guestCount": 2
+}
+
+### Get reservations for a user
+GET http://localhost:8080/api/reservations/user/testuser
+
+### Cancel reservation
+DELETE http://localhost:8080/api/reservations/1 

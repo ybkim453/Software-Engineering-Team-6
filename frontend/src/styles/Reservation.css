@@ -1,0 +1,131 @@
+.reservation-page {
+  min-height: 100vh;
+  padding-top: 70px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+}
+
+.reservation-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 60px; /* Footer 높이만큼 여백 추가 */
+}
+
+.reservation-container h2 {
+  width: 100%;
+  font-size: 40px;
+  margin-bottom: 20px;
+  align-items: left;
+  text-align: left;
+  padding-right: 355px;
+}
+
+.reservation-form {
+  width: 130%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reservation-details {
+  width: 128%;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 7px;
+  margin-bottom: 35px;
+}
+
+.reservation-details p {
+  margin: 8px 0;
+  color: #666;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reservation-form input {
+  width: 130%;
+  padding: 8px 0 8px 5px;
+  font-size: 22px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background-color: transparent;
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin-bottom: 35px;
+}
+
+.card-input-group {
+  width: 130%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+  margin-left: -5px;
+}
+
+.card-input-group input {
+  width: calc(100% - 180px);
+  margin-bottom: 0;
+}
+
+.bank-select {
+  position: absolute;
+  right: 2px;
+  width: 140px;
+  padding: 12px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.bank-select:focus {
+  outline: none;
+  border-color: #b0b0b1;
+}
+
+.reservation-form input::placeholder {
+  color: #b5b1b1;
+}
+
+.reservation-form input:focus {
+  border-bottom: 1px solid #b0b0b1;
+}
+
+.button-container {
+  width: 130%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reservation-button {
+  width: 130%;
+  padding: 17px;
+  background-color: #2962ff;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.reservation-button:hover {
+  background-color: #1541bb;
+}
+
+.reservation-button:focus {
+  outline: none;
+}

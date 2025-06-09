@@ -1,0 +1,104 @@
+.cancel-error-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.cancel-error-modal-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #4A90E2;
+  width: 700px;
+  height: 380px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel-error-close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 35px;
+  cursor: pointer;
+  color: #999;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-error-close-button:hover {
+  color: #333;
+}
+
+.cancel-error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 140px;
+}
+
+.cancel-error-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.cancel-error-icon {
+  width: 40px;
+  height: 40px;
+  filter: invert(11%) sepia(100%) saturate(5876%) hue-rotate(360deg) brightness(118%) contrast(100%);
+}
+
+.cancel-error-title {
+  font-size: 35px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cancel-error-message {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.cancel-error-close-modal-button {
+  width: 90%;
+  padding: 15px;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 45px;
+}
+
+.cancel-error-close-modal-button:hover {
+  background-color: #357ABD;
+}
+
+.cancel-error-close-modal-button:focus {
+  outline: none;
+}
