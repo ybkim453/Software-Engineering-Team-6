@@ -79,4 +79,22 @@ def login():
             }
         })
     
-    return jsonify({'message': '아이디 또는 비밀번호가 올바르지 않습니다.'}), 401 
+    return jsonify({'message': '아이디 또는 비밀번호가 올바르지 않습니다.'}), 401
+
+@auth_bp.route('/user/<userid>', methods=['GET'])
+def get_user_info(userid):
+    try:
+        user = User.query.filter_by(userid=userid).first()
+        
+        if not user:
+            return jsonify({'message': '사용자를 찾을 수 없습니다.'}), 404
+            
+        return jsonify({
+            'userid': user.userid,
+            'name': user.name,
+            'email': user.email,
+            'phone': user.phone
+        })
+        
+    except Exception as e:
+        return jsonify({'message': '사용자 정보 조회 중 오류가 발생했습니다.'}), 500 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import calendarIcon from "../assets/calendar_icon.png";
@@ -6,12 +7,24 @@ import "../styles/MainPage.css";
 
 const MainPage = () => {
   const [selectedDate, setSelectedDate] = useState("");
+  const navigate = useNavigate();
 
   const handleDateChange = (e) => {
-    const date = e.target.value;
-    // YYYY-MM-DD 형식을 DD/MM/YYYY 형식으로 변환
-    const [year, month, day] = date.split('-');
-    setSelectedDate(`${day}/${month}/${year}`);
+    const selectedDate = e.target.value;  // YYYY-MM-DD 형식
+    setSelectedDate(selectedDate);
+  };
+
+  const handleViewTable = () => {
+    if (selectedDate) {
+      navigate('/table-view', {
+        state: {
+          selectedDate: selectedDate,  // YYYY-MM-DD 형식 그대로 사용
+          originalDate: selectedDate
+        }
+      });
+    } else {
+      alert('날짜를 선택해주세요.');
+    }
   };
 
   return (
@@ -44,6 +57,7 @@ const MainPage = () => {
           <button 
             className={`reserve-button ${selectedDate ? 'active' : ''}`}
             disabled={!selectedDate}
+            onClick={handleViewTable}
           >
             View Table
           </button>

@@ -26,7 +26,10 @@ const LoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("로그인 성공!");
+        // 로그인 상태를 localStorage에 저장
+        localStorage.setItem('isLoggedIn', 'true');
+        // 사용자 ID도 저장 (필요한 경우 사용)
+        localStorage.setItem('userid', userid);
         navigate("/main");
       } else {
         alert(data.message || "로그인에 실패했습니다.");
