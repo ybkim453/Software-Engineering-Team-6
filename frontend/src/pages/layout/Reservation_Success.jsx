@@ -8,7 +8,13 @@ const ReservationSuccess = ({ reservationData, onClose }) => {
 
   const handleClose = () => {
     onClose();
-    navigate('/main');
+    navigate('/table-view', {
+      state: {
+        selectedDate: reservationData.reservationDate,
+        originalDate: reservationData.reservationDate,
+        timeSlot: reservationData.timeSlot
+      }
+    });
   };
 
   return (
