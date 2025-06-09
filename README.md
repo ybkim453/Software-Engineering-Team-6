@@ -58,12 +58,20 @@ python main.py
 ```
 📁 Software-Engineering-Team-6/
 ├── backend/                                       # 🐍 Flask 백엔드
-│   ├── app.py                                     # Flask 실행 파일
+│   ├── main.py                                     # Flask 실행 파일
 │   ├── database/                                  # DB 연결 및 초기화
-│   │   └── db.py               
+│   │   ├── __init__.py
+│   │   └── database.py  
+│   ├── instance/                                  # DB 연결 및 초기화
+│   │   └── restaurant.db               
 │   ├── models/                                    # SQLAlchemy 모델 정의
+│   │   ├── __init__.py
+│   │   ├── reservation.py
+│   │   └── user.py
 │   ├── routes/                                    # Flask 라우팅
-│   ├── services/                                  # 비즈니스 로직 처리
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   └── reservation.py
 │   ├── utils/                                     # 공통 유틸리티 함수
 │   │   └── validators.py               
 │   └── requirements.txt                           # 필요 패키지 목록
@@ -75,17 +83,48 @@ python main.py
 │       ├── src/
 │       │   ├── assets/                            # 이미지, 아이콘 등
 │       │   ├── components/                        # 공통 컴포넌트
-│       │   ├── contexts/                          # 전역 상태
+│       │   │   ├── Footer.jsx
+│       │   │   └── Header.jsx
 │       │   ├── pages/                             # 페이지별 컴포넌트
+│       │   │   ├── layout
+│       │   │   │   ├── Cancel
+│       │   │   │   │   ├── Cancel_Continue.jsx
+│       │   │   │   │   ├── Cancel_Success.jsx
+│       │   │   │   │   └── Error.jsx
+│       │   │   │   ├── Reservation_Success.jsx
+│       │   │   │   ├── Table.jsx
+│       │   │   │   └── UserInfo.jsx
+│       │   │   ├── Cancel.jsx
+│       │   │   ├── LoginPage.jsx
+│       │   │   ├── MainPage.jsx
+│       │   │   ├── Reservation.jsx
+│       │   │   ├── SignupPage.jsx
+│       │   │   └── TableView.jsx
 │       │   ├── routes/                            # react-router-dom 라우팅
-│       │   ├── services/                          # axios 기반 API 호출 모듈
+│       │   │   └── AppRouter.jsx
 │       │   ├── styles/                            # 전역 스타일 및 모듈 CSS
+│       │   │   ├── layout
+│       │   │   │   ├── Cancel
+│       │   │   │   │   ├── Cancel_Continue.css
+│       │   │   │   │   ├── Cancel_Success.css
+│       │   │   │   │   └── Error.css
+│       │   │   │   ├── Reservation_Success.css
+│       │   │   │   ├── Table.css
+│       │   │   │   └── UserInfo.css
+│       │   │   ├── Cancel.css
+│       │   │   ├── LoginPage.css
+│       │   │   ├── MainPage.css
+│       │   │   ├── Reservation.css
+│       │   │   ├── SignupPage.css
+│       │   │   └── TableView.css
 │       │   ├── App.jsx
 │       │   ├── main.jsx
 │       │   └── index.css
 │       ├── index.html
 │       └── vite.config.js
 ├── rest_client/                                   # REST API 테스트용
+│   ├── auth.http
+│   └── reservation.http
 └── README.md
 ```
 
