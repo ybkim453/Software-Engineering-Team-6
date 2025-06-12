@@ -1,19 +1,10 @@
-### Get table status for specific date
-GET http://localhost:8080/api/reservations/tables
-Content-Type: application/json
-
-{
-    "date": "2024-03-20",
-    "timeSlot": "lunch"
-}
-
 ### Make a reservation
 POST http://localhost:8080/api/reservations
 Content-Type: application/json
 
 {
-    "userid": "user1",
-    "reservationDate": "2025-06-09",
+    "userid": "testuser1",
+    "reservationDate": "2025-06-14",
     "timeSlot": "lunch",
     "tableNumber": 5,
     "customerName": "홍길동",
@@ -28,8 +19,8 @@ POST http://localhost:8080/api/reservations
 Content-Type: application/json
 
 {
-    "userid": "user1",
-    "reservationDate": "2025-06-09",
+    "userid": "testuser1",
+    "reservationDate": "2025-06-14",
     "timeSlot": "lunch",
     "tableNumber": 8,
     "customerName": "홍길동",
@@ -44,8 +35,8 @@ POST http://localhost:8080/api/reservations
 Content-Type: application/json
 
 {
-    "userid": "user2",
-    "reservationDate": "2025-06-09",
+    "userid": "testuser2",
+    "reservationDate": "2025-06-14",
     "timeSlot": "lunch",
     "tableNumber": 9,
     "customerName": "홍길동",
@@ -60,8 +51,8 @@ POST http://localhost:8080/api/reservations
 Content-Type: application/json
 
 {
-    "userid": "user1",
-    "reservationDate": "2025-06-09",
+    "userid": "testuser1",
+    "reservationDate": "2025-06-14",
     "timeSlot": "lunch",
     "tableNumber": 1,
     "customerName": "홍길동",
@@ -76,8 +67,8 @@ POST http://localhost:8080/api/reservations
 Content-Type: application/json
 
 {
-    "userid": "user1",
-    "reservationDate": "2025-06-12",
+    "userid": "testuser1",
+    "reservationDate": "2025-06-18",
     "timeSlot": "lunch",
     "tableNumber": 11,
     "customerName": "홍길동",

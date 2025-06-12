@@ -3,8 +3,8 @@ POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
-    "userid": "user1",
-    "password": "password1",
+    "userid": "testuser1",
+    "password": "password1!",
     "email": "test@dgu.ac.kr",
     "name": "dongguk",
     "phone": "010-1234-5678"
@@ -15,8 +15,8 @@ POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
-    "userid": "user2",
-    "password": "password2",
+    "userid": "testuser2",
+    "password": "password2!",
     "email": "test2@dgu.ac.kr",
     "name": "김동국",
     "phone": "010-1234-5678"
