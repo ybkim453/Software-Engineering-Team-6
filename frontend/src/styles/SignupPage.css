@@ -19,28 +19,28 @@
 }
 
 .input-group {
-  width: 130%;
   position: relative;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
+  width: 120%;
+  max-width: 600px;
   display: flex;
   align-items: center;
 }
 
 .input-group input {
   width: 100%;
-  padding: 8px 0 8px 5px;
-  font-size: 16px;
+  padding: 10px 0 7px 3px;
   border: none;
   border-bottom: 1px solid #ddd;
-  background-color: transparent;
+  font-size: 16px;
   outline: none;
-  box-shadow: none;
-  border-radius: 0;
+  transition: border-color 0.3s ease;
+  border-radius: 0px;
 }
 
 /* 아이디 입력 필드에 대한 특별 스타일 */
 .input-group input[name="userid"] {
-  width: calc(100% - 140px);
+  width: calc(100% - 125px);
 }
 
 .input-group input::placeholder {
@@ -51,28 +51,26 @@
   border-bottom: 1px solid #b0b0b1;
 }
 
+.input-group.error input {
+  border-bottom-color: #ff6b6b;
+}
+
 .check-button {
   position: absolute;
-  right: 0px;
+  right: 0;
+  bottom: 0;
   padding: 8px;
   background-color: #bfbdbd;
+  color: white;
   border: none;
-  border-radius: 15px;
-  color: #ffffff;
-  font-size: 14px;
   cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s;
+  border-radius: 15px;
+  font-size: 14px;
   width: 120px;
-  outline: none;
 }
 
 .check-button:hover {
   background-color: #555454;
-}
-
-.check-button:focus {
-  outline: none;
 }
 
 .signup-button {
@@ -94,4 +92,29 @@
 
 .signup-button:focus {
   outline: none;
+}
+
+.error-message {
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  color: #ff6b6b;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.error-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: bold;
 }

@@ -91,17 +91,17 @@
 .success-message {
   font-size: 20px;
   color: #666;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .close-modal-button {
   width: 90%;
   transform: translateX(5.5%);
-  padding: 15px;
-  background-color: #4A90E2;
+  padding: 18px;
+  background-color: #4f9cf4;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s;

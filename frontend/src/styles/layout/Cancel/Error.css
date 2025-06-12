@@ -53,7 +53,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 140px;
+  margin-top: 130px;
 }
 
 .cancel-error-header {
@@ -78,21 +78,21 @@
 .cancel-error-message {
   font-size: 20px;
   color: #666;
-  margin-bottom: 50px;
+  margin-bottom: 55px;
   text-align: center;
 }
 
 .cancel-error-close-modal-button {
   width: 90%;
-  padding: 15px;
-  background-color: #4A90E2;
+  padding: 18px;
+  background-color: #4f9cf4;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s;
-  margin-top: 45px;
+  margin-top: 40px;
 }
 
 .cancel-error-close-modal-button:hover {

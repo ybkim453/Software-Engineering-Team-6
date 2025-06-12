@@ -13,28 +13,67 @@ const SignupPage = () => {
     password: "",
   });
 
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    userid: false,
+    password: false,
+  });
+
+  const errorMessages = {
+    name: "이름을 정확히 입력해 주세요.",
+    email: "이메일을 형식에 맞게 정확히 입력해 주세요.",
+    phone: "전화번호를 정확히 입력해 주세요.",
+    userid: "영문자, 숫자 조합 최소 6자리 이상의 아이디를 정확히 입력해 주세요.",
+    password: "영문자, 숫자, 특수문자 조합 최소 8자리 이상의 비밀번호를 정확히 입력해 주세요.",
+  };
+
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [isIdAvailable, setIsIdAvailable] = useState(false);
 
   const navigate = useNavigate();
 
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'userid':
+        return /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{6,}$/.test(value);
+      case 'password':
+        return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(value);
+      case 'email':
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      default:
+        return value.trim() !== '';
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      [name]: value,
+      [name]: value
     }));
     
-    // 아이디가 변경되면 중복확인 상태 초기화
     if (name === "userid") {
       setIsIdChecked(false);
       setIsIdAvailable(false);
     }
+
+    // 입력이 있으면 에러 상태 제거
+    if (value.trim()) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: false
+      }));
+    }
   };
 
   const checkDuplicate = async () => {
-    if (!formData.userid) {
-      alert("아이디를 입력해주세요.");
+    if (!formData.userid || !validateField('userid', formData.userid)) {
+      setErrors(prev => ({
+        ...prev,
+        userid: true
+      }));
       return;
     }
 
@@ -74,14 +113,20 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 모든 필드가 입력되었는지 확인
-    if (!formData.name || !formData.email || !formData.phone || 
-        !formData.userid || !formData.password) {
-      alert("모든 정보를 입력해주세요.");
+    // 모든 필드 유효성 검사
+    const newErrors = {};
+    Object.keys(formData).forEach(field => {
+      newErrors[field] = !validateField(field, formData[field]);
+    });
+
+    setErrors(newErrors);
+
+    // 에러가 있으면 제출하지 않음
+    if (Object.values(newErrors).some(error => error)) {
       return;
     }
 
-    // 아이디 중복확인이 완료되었는지 확인
+    // 아이디 중복확인 체크
     if (!isIdChecked || !isIdAvailable) {
       alert("아이디 중복확인을 완료해주세요.");
       return;
@@ -113,59 +158,84 @@ const SignupPage = () => {
   return (
     <div className="signup-page">
       <Header />
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="input-group">
+      <form onSubmit={handleSubmit} className="signup-form" noValidate>
+        <div className={`input-group ${errors.name ? 'error' : ''}`}>
           <input
             type="text"
             name="name"
             placeholder="이름"
             value={formData.name}
             onChange={handleChange}
-            required
           />
+          {errors.name && (
+            <div className="error-message">
+              <i className="error-icon">!</i>
+              {errorMessages.name}
+            </div>
+          )}
         </div>
-        <div className="input-group">
+        <div className={`input-group ${errors.email ? 'error' : ''}`}>
           <input
             type="email"
             name="email"
             placeholder="이메일"
             value={formData.email}
             onChange={handleChange}
-            required
           />
+          {errors.email && (
+            <div className="error-message">
+              <i className="error-icon">!</i>
+              {errorMessages.email}
+            </div>
+          )}
         </div>
-        <div className="input-group">
+        <div className={`input-group ${errors.phone ? 'error' : ''}`}>
           <input
             type="tel"
             name="phone"
             placeholder="전화번호"
             value={formData.phone}
             onChange={handleChange}
-            required
           />
+          {errors.phone && (
+            <div className="error-message">
+              <i className="error-icon">!</i>
+              {errorMessages.phone}
+            </div>
+          )}
         </div>
-        <div className="input-group">
+        <div className={`input-group ${errors.userid ? 'error' : ''}`}>
           <input
             type="text"
             name="userid"
             placeholder="아이디"
             value={formData.userid}
             onChange={handleChange}
-            required
           />
           <button type="button" className="check-button" onClick={checkDuplicate}>
             중복확인
           </button>
+          {errors.userid && (
+            <div className="error-message">
+              <i className="error-icon">!</i>
+              {errorMessages.userid}
+            </div>
+          )}
         </div>
-        <div className="input-group">
+        <div className={`input-group ${errors.password ? 'error' : ''}`}>
           <input
             type="password"
             name="password"
             placeholder="비밀번호"
             value={formData.password}
             onChange={handleChange}
-            required
           />
+          {errors.password && (
+            <div className="error-message">
+              <i className="error-icon">!</i>
+              {errorMessages.password}
+            </div>
+          )}
         </div>
         <button type="submit" className="signup-button">회원가입</button>
       </form>
