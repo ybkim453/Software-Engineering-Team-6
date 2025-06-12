@@ -159,6 +159,7 @@ const SignupPage = () => {
     <div className="signup-page">
       <Header />
       <form onSubmit={handleSubmit} className="signup-form" noValidate>
+        <h2>Software Restaurant 계정 만들기</h2>
         <div className={`input-group ${errors.name ? 'error' : ''}`}>
           <input
             type="text"

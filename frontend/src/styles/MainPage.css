@@ -20,13 +20,14 @@
 .main-container h2 {
   color: #333;
   margin-bottom: 30px;
+  margin-top: 60px;
   font-size: 28px;
   font-weight: 600;
 }
 
 .calendar-box {
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
   padding: 30px;
   width: 100%;
