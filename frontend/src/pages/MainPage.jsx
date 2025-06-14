@@ -205,42 +205,51 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <Header />
-      <div className="main-content-wrapper"> {/* 새로운 wrapper 추가 */}
-        <ImageCarousel /> {/* 이미지 캐러셀 */}
-        <div className="calendar-section"> {/* 캘린더 섹션 분리 */}
-          <div className="calendar-title">날짜 선택</div> {/* 날짜 선택 텍스트 추가 */}
-          <div className="calendar-box">
-            <div className="calendar-header">
-              <span className="today-button" onClick={goToToday}>
-                오늘
-              </span>
-              <div className="month-navigator">
-                <button onClick={goToPrevMonth} disabled={isPrevMonthDisabled}>&lt;</button>
-                <span>
-                  {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
+      <div className="main-content-wrapper">
+        <div className="MainPage-title">안녕하세요, <br></br>Software Restaurant입니다.</div>
+        <div className="content-row">
+          <div className="left-section">
+            <ImageCarousel />
+            <div className="restaurant-description">
+              <p>고급스러운 다이닝 경험을 제공하는 레스토랑입니다.</p>
+              <p>우측 달력에서 날짜를 선택하여 예약을 진행하실 수 있습니다.</p>
+            </div>
+          </div>
+          <div className="calendar-section"> {/* 캘린더 섹션 분리 */}
+            {/*<div className="calendar-title">날짜 선택</div> {/* 날짜 선택 텍스트 추가 */}
+            <div className="calendar-box">
+              <div className="calendar-header">
+                <span className="today-button" onClick={goToToday}>
+                  오늘
                 </span>
-                <button onClick={goToNextMonth} disabled={isNextMonthDisabled}>&gt;</button>
+                <div className="month-navigator">
+                  <button onClick={goToPrevMonth} disabled={isPrevMonthDisabled}>&lt;</button>
+                  <span>
+                    {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
+                  </span>
+                  <button onClick={goToNextMonth} disabled={isNextMonthDisabled}>&gt;</button>
+                </div>
               </div>
-            </div>
-            <div className="calendar-grid">
-              <div className="calendar-weekdays">
-                <span>일</span>
-                <span>월</span>
-                <span>화</span>
-                <span>수</span>
-                <span>목</span>
-                <span>금</span>
-                <span>토</span>
+              <div className="calendar-grid">
+                <div className="calendar-weekdays">
+                  <span>일</span>
+                  <span>월</span>
+                  <span>화</span>
+                  <span>수</span>
+                  <span>목</span>
+                  <span>금</span>
+                  <span>토</span>
+                </div>
+                <div className="calendar-days">{renderCalendarDays()}</div>
               </div>
-              <div className="calendar-days">{renderCalendarDays()}</div>
+              <button
+                className="confirm-button"
+                onClick={handleConfirm}
+                disabled={!selectedDate || (reservationAvailability[formatDateToYYYYMMDD(selectedDate)] && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].lunch && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].dinner)}
+              >
+                확인
+              </button>
             </div>
-            <button
-              className="confirm-button"
-              onClick={handleConfirm}
-              disabled={!selectedDate || (reservationAvailability[formatDateToYYYYMMDD(selectedDate)] && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].lunch && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].dinner)}
-            >
-              확인
-            </button>
           </div>
         </div>
       </div>
