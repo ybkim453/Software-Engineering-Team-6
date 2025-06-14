@@ -167,6 +167,13 @@ const Reservation = () => {
             <p>날짜: {selectedDate}</p>
             <p>시간대: {timeSlot === 'lunch' ? '점심' : '저녁'}</p>
             <p>테이블 번호: {tableNumber}</p>
+            <p>테이블 위치: {
+                tableNumber === 1 || tableNumber === 4
+                ? "창가"
+                : tableNumber === 2 || tableNumber === 3
+                ? "룸, 창가"
+                : "복도"
+              }</p>
             <p>최대 인원: {getMaxGuestsByTable(tableNumber)}명</p>
           </div>
           <div className={`reservation-input-group ${errors.name ? 'error' : ''}`}>
