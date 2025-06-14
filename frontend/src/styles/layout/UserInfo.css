@@ -1,46 +1,154 @@
+/* src/styles/layout/UserInfo.css */
+
+/* UserInfo Modal Overlay (옵션: 모달 외 클릭 시 닫기 위한 배경 오버레이) */
+.user-info-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* 옅은 회색 반투명 오버레이 */
+    display: flex; /* 모달 중앙 정렬을 위해 사용 가능, 여기서는 우상단에 위치 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: flex-start; /* 상단 정렬 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+/* UserInfo Modal Container */
 .user-info-modal {
-  position: fixed;
-  top: 70px;  /* Header 높이만큼 아래로 */
-  right: 20px;
-  width: 300px;
-  height: auto;
-  min-height: 500px;
-  background-color: #F8FBFF;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+    position: absolute; /* Header의 사용자 아이콘 기준 위치 조절 */
+    top: 70px; /* Header 높이만큼 아래로 (Header가 70px이라고 가정) */
+    right: 20px; /* 우측에서 20px 떨어지게 */
+
+    width: 380px;
+    height: 424px;
+    background: #F9FBFF;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* 옅은 그림자 추가 */
+    padding: 30px; /* 내부 여백 */
+    box-sizing: border-box; /* 패딩이 width/height에 포함되도록 */
+    display: flex;
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
 }
 
-.user-info-content {
-  position: relative;
-  height: 500px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-
+/* 닫기 버튼 */
 .user-info-close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #999;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    top: 22px; /* 이미지에서 726px-402px = 324px, 222px-200px = 22px 차이 */
+    right: 22px; /* 이미지에서 726px-380px-402px = -56px, 너무 왼쪽. 오른쪽에서 22px로 조정 */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 1;
+    display: flex; /* 이미지 중앙 정렬 */
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info-close-btn img {
+    width: 33px; /* 이미지의 원래 크기 */
+    height: 33px;
 }
 
 .user-info-close-btn:hover {
-  color: #000;
+    opacity: 0.7;
 }
 
+/* 환영 메시지 */
+.user-info-greeting {
+    width: 100%; /* 너비 전체 사용 */
+    padding-left: 20px; /* 이미지 기준 left: 439px, 모달 기준 439-402=37px. 여백 조절 */
+    text-align: left; /* 왼쪽 정렬 */
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    margin-top: 39px; /* 이미지에서 top: 239px, 모달 기준 239-200=39px */
+    margin-bottom: 20px; /* 상세 정보와의 간격 */
+    box-sizing: border-box;
+}
+
+/* 사용자 상세 정보 */
+.user-info-details {
+    width: 100%; /* 너비 전체 사용 */
+    padding-left: 20px; /* 이미지 기준 left: 439px */
+    text-align: left; /* 왼쪽 정렬 */
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    margin-bottom: 20px; /* 구분선과의 간격 */
+    box-sizing: border-box;
+}
+
+.user-info-details p {
+    margin: 10px 0; /* 각 정보 줄 사이 간격 */
+}
+
+/* 구분선 */
+.user-info-divider {
+    width: 300px; /* 이미지에서 300px */
+    height: 0px;
+    border-top: 2px solid #E6E6E6; /* border로 선 표현 */
+    margin: 15px 0; /* 위아래 간격 */
+}
+
+/* 예약 목록 버튼 */
+.user-info-reservations-btn {
+    width: 299px; /* 이미지에서 299px */
+    height: 41px; /* 이미지에서 41px */
+    background: #2962FF;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트 중앙 정렬 */
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 15px; /* 로그아웃 버튼과의 간격 */
+}
+
+.user-info-reservations-btn:hover {
+    background-color: #1a4da3;
+}
+
+/* 로그아웃 버튼 */
+.user-info-logout-btn {
+    width: 299px; /* 이미지에서 299px */
+    height: 41px; /* 이미지에서 41px */
+    background: #DDDDDD;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 텍스트 중앙 정렬 */
+    color: #686868;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.user-info-logout-btn:hover {
+    background-color: #c4c4c4;
+}
+
+/* 로그인 필요/로딩 메시지 스타일 */
 .user-info-message {
   position: absolute;
   top: 50%;
@@ -48,49 +156,5 @@
   transform: translate(-50%, -50%);
   color: #666;
   font-size: 20px;
-}
-
-/* 로그인 후 스타일 */
-.user-info-greeting {
-  color: #666;
-  font-size: 25px;
-  margin-top: 30px;
-  margin-bottom: -20px;
-  line-height: 1.5;
-  text-align: left;
-  margin-left: 15px;
-}
-
-.user-info-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  padding: 0 15px;
-}
-
-.user-info-details p {
-  color: #666;
-  font-size: 18px;
-  margin: 15px 0;
-}
-
-.user-info-logout-btn {
-  width: 80%;
-  padding: 15px;
-  margin: 0 auto 30px auto;
-  border: none;
-  background-color: #DDD;
-  color: #666;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.user-info-logout-btn:hover {
-  background-color: #ccc;
-} 
-
-.user-info-logout-btn:focus {
-  outline: none;
+  text-align: center;
 }
