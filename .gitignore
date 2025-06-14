@@ -1,6 +1,7 @@
 # python
 .venv
 __pycache__/
+*.pyc
 
 # uv
 .python-version
@@ -21,4 +22,3 @@ build/
 *.swp
 *.bak
 *.swo
-*.pyc
