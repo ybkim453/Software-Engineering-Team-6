@@ -44,11 +44,26 @@ const TableLayout = ({ selectedDate, displayDate, reservedTables = [], timeSlot 
   return (
     <>
       <div className="restaurant-layout">
+        <div className="R-left-line-1"></div>
+        <div className="R-left-line-2"></div>
+        <div className="R-left-line-3"></div>
+        <div className="R-left-line-4"></div>
+        <div className="left-window-1">[Window]</div>
+        <div className="left-window-2">[Window]</div>
+        <div className="left-window-3">[Window]</div>
+
         {/* 왼쪽 영역 테두리 */}
         <div className="left-border"></div>
         
         {/* 오른쪽 영역 테두리 */}
-        <div className="right-border"></div>
+        <div className="right-border">
+          <div className="right-border-top-left-line"></div>
+          <div className="right-border-top-right-line"></div>
+          <div className="right-border-bottom-left-line"></div>
+          <div className="right-border-bottom-right-line"></div>
+          <div className="right-border-label">[Room]</div>
+          <div className="right-border-window">[Window]</div>
+        </div>
         
         {/* 오른쪽 영역 테두리 */}
         <div className="line-1"></div>
