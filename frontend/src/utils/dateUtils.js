@@ -85,10 +85,10 @@ export const areDatesEqual = (date1, date2) => {
  */
 export const isBeforeToday = (date) => {
   const today = new Date();
-  // 시간 정보는 무시하고 날짜만 비교하기 위해 자정으로 설정
   today.setHours(0, 0, 0, 0);
-  date.setHours(0, 0, 0, 0);
-  return date.getTime() < today.getTime();
+  const compareDate = new Date(date); // 새로운 Date 객체 생성
+  compareDate.setHours(0, 0, 0, 0);
+  return compareDate.getTime() < today.getTime();
 };
 
 /**
