@@ -95,11 +95,11 @@ const TableLayout = ({ selectedDate, displayDate, reservedTables = [], timeSlot 
               <div className="table-seats">6인석</div>
             </div>
             <div 
-              className={`table six-person ${isTableReserved(5) ? 'reserved' : ''}`} 
-              data-table-number="5"
-              onClick={() => handleTableClick(5)}
+              className={`table six-person ${isTableReserved(4) ? 'reserved' : ''}`} 
+              data-table-number="4"
+              onClick={() => handleTableClick(4)}
             >
-              <div className="table-number">[5번]</div>
+              <div className="table-number">[4번]</div>
               <div className="table-seats">6인석</div>
             </div>
           </div>
@@ -107,7 +107,7 @@ const TableLayout = ({ selectedDate, displayDate, reservedTables = [], timeSlot 
           {/* 중앙 다이아몬드 테이블 */}
           <div className="center-tables">
             <div className="diamond-row">
-              {[6, 7, 8, 9, 10].map((tableNum) => (
+              {[5, 6, 7, 8, 9].map((tableNum) => (
                 <div 
                   key={tableNum}
                   className={`table diamond four-person ${isTableReserved(tableNum) ? 'reserved' : ''}`}
@@ -123,7 +123,7 @@ const TableLayout = ({ selectedDate, displayDate, reservedTables = [], timeSlot 
           
           {/* 하단 테이블 */}
           <div className="bottom-tables">
-            {[11, 12, 13, 14].map((tableNum) => (
+            {[10, 11, 12, 13].map((tableNum) => (
               <div 
                 key={tableNum}
                 className={`table two-person ${isTableReserved(tableNum) ? 'reserved' : ''}`}
@@ -137,18 +137,18 @@ const TableLayout = ({ selectedDate, displayDate, reservedTables = [], timeSlot 
           </div>
           <div className="bottom-tables-2">
             <div 
-              className={`table two-person ${isTableReserved(15) ? 'reserved' : ''}`}
-              data-table-number="15"
-              onClick={() => handleTableClick(15)}
+              className={`table two-person ${isTableReserved(14) ? 'reserved' : ''}`}
+              data-table-number="14"
+              onClick={() => handleTableClick(14)}
             >
-              <div className="table-number">[15번]</div>
+              <div className="table-number">[14번]</div>
               <div className="table-seats">2인석</div>
             </div>
           </div>
           
           {/* 오른쪽 테이블 */}
           <div className="right-tables">
-            {[3, 4].map((tableNum) => (
+            {[2, 3].map((tableNum) => (
               <div 
                 key={tableNum}
                 className={`table eight-person ${isTableReserved(tableNum) ? 'reserved' : ''}`}
