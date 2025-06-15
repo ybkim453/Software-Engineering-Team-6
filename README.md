@@ -97,6 +97,7 @@ python main.py
 │       │   │   ├── LoginPage.jsx
 │       │   │   ├── MainPage.jsx
 │       │   │   ├── Reservation.jsx
+│       │   │   ├── ReservationListPage.jsx
 │       │   │   ├── SignupPage.jsx
 │       │   │   └── TableView.jsx
 │       │   ├── routes/                            # react-router-dom 라우팅
@@ -114,8 +115,11 @@ python main.py
 │       │   │   ├── LoginPage.css
 │       │   │   ├── MainPage.css
 │       │   │   ├── Reservation.css
+│       │   │   ├── ReservationListPage.css
 │       │   │   ├── SignupPage.css
 │       │   │   └── TableView.css
+│       │   ├── utils/
+│       │   │   └── dateUtils.js
 │       │   ├── App.jsx
 │       │   ├── main.jsx
 │       │   └── index.css
