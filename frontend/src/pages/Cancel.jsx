@@ -1,3 +1,5 @@
+// Cancel.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import checkIcon from '../assets/check_icon.png';
@@ -17,28 +19,47 @@ const Cancel = ({ reservationData, onClose }) => {
 
   useEffect(() => {
     const fetchReservationDetails = async () => {
+      // reservationData prop이 유효한지 먼저 확인
+      // 'date', 'timeSlot', 'tableNumber' 키
+      if (!reservationData || !reservationData.date || !reservationData.timeSlot || !reservationData.tableNumber) {
+        console.warn('예약 상세 정보를 가져올 때 예약 데이터가 불완전하거나 null입니다:', reservationData);
+        setErrorType('missing_reservation_info');
+        setShowError(true);
+        return; // 유효하지 않은 데이터면 요청을 보내지 않고 종료
+      }
+
+      // 백엔드 API가 기대하는 키 이름으로 페이로드 구성
+      const payload = {
+        date: reservationData.date,
+        timeSlot: reservationData.timeSlot,
+        tableNumber: reservationData.tableNumber
+      };
+
+      console.log('상세 정보 요청 페이로드 전송:', payload);
+
       try {
         const response = await fetch(`http://localhost:8080/api/reservations/details`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            date: reservationData.date,
-            timeSlot: reservationData.timeSlot,
-            tableNumber: reservationData.tableNumber
-          }),
+          body: JSON.stringify(payload),
         });
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Reservation details:', data); // 디버깅용
+          console.log('예약 상세 정보 수신:', data);
           setReservationDetails(data);
         } else {
-          console.error('Failed to fetch reservation details');
+          const errorData = await response.json();
+          console.error('예약 상세 정보를 가져오지 못했습니다:', errorData.message || response.statusText);
+          setErrorType('fetch_details_failed');
+          setShowError(true);
         }
       } catch (error) {
-        console.error('Error fetching reservation details:', error);
+        console.error('예약 상세 정보를 가져오는 중 오류 발생:', error);
+        setErrorType('network_error');
+        setShowError(true);
       }
     };
 
@@ -50,30 +71,32 @@ const Cancel = ({ reservationData, onClose }) => {
   };
 
   const checkCancellationEligibility = () => {
-    if (!reservationDetails) return false;
+    if (!reservationDetails) {
+      setErrorType('no_details_fetched');
+      setShowError(true);
+      return false;
+    }
 
-    // 현재 로그인한 사용자의 ID
     const currentUserId = localStorage.getItem('userid');
-    console.log('Current user ID:', currentUserId); // 디버깅용
-    console.log('Reservation userid:', reservationDetails.userid); // 디버깅용
+    console.log('현재 사용자 ID:', currentUserId);
+    console.log('예약 사용자 ID:', reservationDetails.userid);
     
-    // 예약자 ID와 현재 사용자 ID 비교
     if (reservationDetails.userid !== currentUserId) {
       setErrorType('unauthorized');
       setShowError(true);
       return false;
     }
 
-    // 날짜 체크
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    
     const reservationDate = new Date(reservationData.date);
     reservationDate.setHours(0, 0, 0, 0);
 
     const timeDiff = reservationDate.getTime() - today.getTime();
     const daysDiff = timeDiff / (1000 * 3600 * 24);
 
-    if (daysDiff <= 1) {  // 하루 이상 남지 않은 경우
+    if (daysDiff <= 1) {
       setErrorType('invalid_date');
       setShowError(true);
       return false;
@@ -91,16 +114,21 @@ const Cancel = ({ reservationData, onClose }) => {
   const handleCancelConfirm = async () => {
     setIsLoading(true);
     try {
+      // 백엔드 API가 기대하는 키 이름으로 페이로드 구성
+      const payload = {
+        date: reservationData.date,
+        timeSlot: reservationData.timeSlot,
+        tableNumber: reservationData.tableNumber
+      };
+
+      console.log('취소 요청 페이로드 전송:', payload);
+
       const response = await fetch(`http://localhost:8080/api/reservations/cancel`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          date: reservationData.date,
-          timeSlot: reservationData.timeSlot,
-          tableNumber: reservationData.tableNumber
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
@@ -111,7 +139,7 @@ const Cancel = ({ reservationData, onClose }) => {
         alert(data.message || '예약 취소에 실패했습니다.');
       }
     } catch (error) {
-      console.error('Error canceling reservation:', error);
+      console.error('예약 취소 중 오류 발생:', error);
       alert('예약 취소 중 오류가 발생했습니다.');
     } finally {
       setIsLoading(false);
@@ -141,7 +169,7 @@ const Cancel = ({ reservationData, onClose }) => {
         <button className="cancel-close-button" onClick={handleClose}>×</button>
         
         <div className="cancel-header">
-          <img src={checkIcon} alt="엑스" className="cancel-icon" />
+          <img src={checkIcon} alt="체크 아이콘" className="cancel-icon" />
           <div className="cancel-info">
             <div className="cancel-title">예약정보</div>
             <div className="cancel-details">

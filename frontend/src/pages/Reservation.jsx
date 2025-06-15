@@ -11,10 +11,10 @@ const Reservation = () => {
   const { selectedDate, timeSlot, tableNumber } = location.state || {};
   const getMaxGuestsByTable = (tableNum) => {
     const tableNumber = parseInt(tableNum);
-    if ([1, 5].includes(tableNumber)) return 6;
-    if ([3, 4].includes(tableNumber)) return 8;
-    if ([6, 7, 8, 9, 10].includes(tableNumber)) return 4;
-    if ([11, 12, 13, 14, 15].includes(tableNumber)) return 2;
+    if ([1, 4].includes(tableNumber)) return 6;
+    if ([2, 3].includes(tableNumber)) return 8;
+    if ([5, 6, 7, 8, 9].includes(tableNumber)) return 4;
+    if ([10, 11, 12, 13, 14].includes(tableNumber)) return 2;
     return 1;
   };
 
