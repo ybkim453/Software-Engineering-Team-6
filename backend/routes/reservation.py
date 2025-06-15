@@ -48,6 +48,12 @@ def make_reservation():
     try:
         reservation_date = datetime.strptime(data['reservationDate'], '%Y-%m-%d').date()
         
+        today = date.today()
+        max_reservation_date = today + timedelta(days=30) # 오늘로부터 30일 후의 날짜
+
+        if reservation_date > max_reservation_date:
+            return jsonify({'message': f'예약은 오늘로부터 30일 이내까지만 가능합니다. ({max_reservation_date.strftime("%Y년 %m월 %d일")}까지)'}), 400
+
         existing_reservation = Reservation.query.filter_by(
             reservation_date=reservation_date,
             time_slot=data['timeSlot'],

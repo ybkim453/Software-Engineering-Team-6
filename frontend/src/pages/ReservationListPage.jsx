@@ -63,18 +63,20 @@ const ReservationCard = ({ reservation, onCancelClick }) => {
 
 const ReservationListPage = () => {
   const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1;
+  
+  // 현재 달의 첫째 날
+  const defaultStartDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  const initialStartDateFormatted = `${defaultStartDate.getFullYear()}-${(defaultStartDate.getMonth() + 1).toString().padStart(2, '0')}-01`;
 
-  const firstDayOfMonth = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-01`;
-  const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
-  const lastDayOfMonthFormatted = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${lastDayOfMonth.toString().padStart(2, '0')}`;
+  // 다음 달의 마지막 날
+  const nextMonthLastDay = new Date(today.getFullYear(), today.getMonth() + 2, 0); // 다음 달의 0번째 날 = 이번 달의 마지막 날
+  const initialEndDateFormatted = `${nextMonthLastDay.getFullYear()}-${(nextMonthLastDay.getMonth() + 1).toString().padStart(2, '0')}-${nextMonthLastDay.getDate().toString().padStart(2, '0')}`;
 
   const [reservations, setReservations] = useState([]);
   const [filterConfirmed, setFilterConfirmed] = useState(false);
   const [filterCancellable, setFilterCancellable] = useState(false);
-  const [startDate, setStartDate] = useState(firstDayOfMonth);
-  const [endDate, setEndDate] = useState(lastDayOfMonthFormatted);
+  const [startDate, setStartDate] = useState(initialStartDateFormatted);
+  const [endDate, setEndDate] = useState(initialEndDateFormatted);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
