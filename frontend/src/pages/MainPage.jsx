@@ -224,20 +224,33 @@ const MainPage = () => {
                 <span>
                   {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
                 </span>
-                <button onClick={goToNextMonth} disabled={isNextMonthDisabled}>&gt;</button>
+                <div className="month-navigator">
+                  <button onClick={goToPrevMonth} disabled={isPrevMonthDisabled}>&lt;</button>
+                  <span>
+                    {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
+                  </span>
+                  <button onClick={goToNextMonth} disabled={isNextMonthDisabled}>&gt;</button>
+                </div>
               </div>
-            </div>
-            <div className="calendar-grid">
-              <div className="calendar-weekdays">
-                <span>일</span>
-                <span>월</span>
-                <span>화</span>
-                <span>수</span>
-                <span>목</span>
-                <span>금</span>
-                <span>토</span>
+              <div className="calendar-grid">
+                <div className="calendar-weekdays">
+                  <span>일</span>
+                  <span>월</span>
+                  <span>화</span>
+                  <span>수</span>
+                  <span>목</span>
+                  <span>금</span>
+                  <span>토</span>
+                </div>
+                <div className="calendar-days">{renderCalendarDays()}</div>
               </div>
-              <div className="calendar-days">{renderCalendarDays()}</div>
+              <button
+                className="confirm-button"
+                onClick={handleConfirm}
+                disabled={!selectedDate || (reservationAvailability[formatDateToYYYYMMDD(selectedDate)] && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].lunch && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].dinner)}
+              >
+                확인
+              </button>
             </div>
             <button
               className="confirm-button"

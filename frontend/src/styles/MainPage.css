@@ -4,27 +4,57 @@
   min-height: 100vh;
   background-color: #ffffff;
   font-family: 'Noto Sans KR', sans-serif;
-  padding-top: 70px;
+  padding-top: 20px;
+  overflow-x: hidden;  /* 가로 스크롤 방지 */
 }
 
 .main-content-wrapper {
   flex-grow: 1;
   display: flex;
-  flex-wrap: wrap; /* 화면이 작아지면 요소들이 아래로 내려감 */
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
+  padding: 100px 160px;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1400px;
   box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.content-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;  
+  width: 100%;
+  max-width: 1100px;  
+}
+
+.MainPage-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+  width: 100%;
+  max-width: 1100px;  /* content-row와 동일한 너비로 제한 */
+  padding: 0;  /* 패딩 제거 */
+}
+
+.left-section {
+  flex: 2; 
+  max-width: 70%;  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .calendar-section {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 0 10px;
+  align-items: flex-start;
+  padding: 0;
 }
 
 .calendar-title {
@@ -39,9 +69,8 @@
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  padding: 30px;
+  padding: 40px;
   width: 100%;
-  max-width: 400px;
   box-sizing: border-box;
 }
 
@@ -112,9 +141,8 @@
 .calendar-weekdays span {
   font-weight: 500;
   color: #888;
-  padding: 10px 0;
+  padding: 15px 0;
   border-bottom: 1px solid #eee;
-  font-size: 14px;
 }
 
 .calendar-days {
@@ -122,10 +150,10 @@
 }
 
 .calendar-day {
-  width: 40px; /* 고정 너비 */
-  height: 40px; /* 고정 높이 */
-  line-height: 40px; /* 텍스트 수직 중앙 정렬 (높이와 동일하게) */
-  border-radius: 15px; /* 모서리 둥글게 15px - 요청하신 15~20 사이 */
+  width: 40px;
+  height: 40px;
+  line-height: 50px;
+  border-radius: 15px;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* transition 속성에 border-color 추가 */
   font-size: 16px;
@@ -217,13 +245,36 @@
 
 /* 미디어 쿼리 - 캐러셀과 캘린더 레이아웃 변경 */
 @media (max-width: 900px) {
-  .main-content-wrapper {
+  .content-row {
     flex-direction: column;
     align-items: center;
+    gap: 30px;
+  }
+
+  .left-section {
+    max-width: 100%;
+    width: 100%;
   }
 
   .carousel-container {
-    margin-right: 0;
-    margin-bottom: 30px;
+    width: 100%;
+    max-width: 600px;
   }
+}
+
+/* 설명 텍스트 스타일 */
+.restaurant-description {
+  padding: 0 5px;
+}
+
+.restaurant-description p {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 550;
+  line-height: 1.5;
+  color: #666;
+}
+
+.restaurant-description p:first-child {
+  margin-bottom: 10px;
 }
