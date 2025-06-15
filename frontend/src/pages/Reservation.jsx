@@ -10,14 +10,14 @@ const Reservation = () => {
   const navigate = useNavigate();
   const { selectedDate, timeSlot, tableNumber } = location.state || {};
   const getMaxGuestsByTable = (tableNum) => {
-    const tableNumber = parseInt(tableNum);
-    if ([1, 4].includes(tableNumber)) return 6;
-    if ([2, 3].includes(tableNumber)) return 8;
-    if ([5, 6, 7, 8, 9].includes(tableNumber)) return 4;
-    if ([10, 11, 12, 13, 14].includes(tableNumber)) return 2;
-    return 1;
+    const parsedTableNum = parseInt(tableNum);
+    if ([1, 4].includes(parsedTableNum)) return 6;
+    if ([2, 3].includes(parsedTableNum)) return 8;
+    if ([5, 6, 7, 8, 9].includes(parsedTableNum)) return 4;
+    if ([10, 11, 12, 13, 14].includes(parsedTableNum)) return 2;
+    return 1; // 기본값 또는 알 수 없는 경우
   };
-
+  const maxGuestsForSelectedTable = getMaxGuestsByTable(tableNumber); // 현재 테이블의 최대 인원
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [reservationData, setReservationData] = useState(null);
 
@@ -49,7 +49,6 @@ const Reservation = () => {
     phone: "전화번호를 정확히 입력해 주세요.",
     cardBank: "은행을 선택해 주세요.",
     cardNumber: "카드 번호를 정확히 입력해 주세요.",
-    guestCount: "방문 인원 수를 정확히 입력해 주세요.",
   };
 
   const banks = ["은행 선택", "신한", "국민", "하나", "토스", "농협"];
@@ -58,12 +57,15 @@ const Reservation = () => {
     switch (name) {
       case 'guestCount':
         const count = parseInt(value);
-        const maxGuests = getMaxGuestsByTable(tableNumber);
-        return count >= 1 && count <= maxGuests;
+        return count >= 1 && count <= maxGuestsForSelectedTable;
       case 'cardBank':
         return value !== "" && value !== "은행 선택";
-      default:
+      case 'name':
+      case 'phone':
+      case 'cardNumber':
         return value.trim() !== '';
+      default:
+        return true;
     }
   };
 
@@ -75,28 +77,62 @@ const Reservation = () => {
     }));
 
     // 입력이 있으면 에러 상태 제거
-    if (value.trim()) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: false
-      }));
+    // guestCount의 경우, 입력값이 변할 때마다 유효성 검사하여 바로 에러 메시지 업데이트
+    if (name === 'guestCount') {
+        const count = parseInt(value);
+        let guestCountError = "";
+        if (isNaN(count) || count < 1) {
+            guestCountError = "방문 인원 수는 1명 이상이어야 합니다.";
+        } else if (count > maxGuestsForSelectedTable) {
+            guestCountError = `이 테이블은 최대 ${maxGuestsForSelectedTable}명까지 예약 가능합니다.`;
+        }
+        setErrors(prev => ({
+            ...prev,
+            guestCount: guestCountError
+        }));
+    } else {
+        if (value.trim()) {
+            setErrors(prev => ({
+                ...prev,
+                [name]: "" // 에러 메시지를 빈 문자열로 설정하여 에러 없음 표시
+            }));
+        } else {
+             // 비어있는 경우 다시 에러 메시지 설정 (필수 필드)
+            setErrors(prev => ({
+                ...prev,
+                [name]: errorMessages[name] // 일반 필수 필드 에러 메시지 재설정
+            }));
+        }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 필수 필드 검증
     const newErrors = {};
-    if (!formData.name) newErrors.name = errorMessages.name;
-    if (!formData.phone) newErrors.phone = errorMessages.phone;
-    if (!formData.cardNumber) newErrors.cardNumber = errorMessages.cardNumber;
-    if (!formData.cardBank || formData.cardBank === "은행 선택") newErrors.cardBank = errorMessages.cardBank;
-    if (!formData.guestCount) newErrors.guestCount = errorMessages.guestCount;
+    let hasError = false; // 에러 존재 여부를 추적
+
+    // 이름, 전화번호, 카드번호, 은행 검증
+    if (!formData.name.trim()) { newErrors.name = errorMessages.name; hasError = true; }
+    if (!formData.phone.trim()) { newErrors.phone = errorMessages.phone; hasError = true; }
+    if (!formData.cardNumber.trim()) { newErrors.cardNumber = errorMessages.cardNumber; hasError = true; }
+    if (!formData.cardBank || formData.cardBank === "은행 선택") { newErrors.cardBank = errorMessages.cardBank; hasError = true; }
+    
+    // 방문 인원 수 검증 (handleSubmit에서 최종적으로 확인)
+    const guestCountValue = parseInt(formData.guestCount);
+    if (isNaN(guestCountValue) || guestCountValue < 1) {
+        newErrors.guestCount = "방문 인원 수는 1명 이상이어야 합니다.";
+        hasError = true;
+    } else if (guestCountValue > maxGuestsForSelectedTable) {
+        newErrors.guestCount = `이 테이블은 최대 ${maxGuestsForSelectedTable}명까지 예약 가능합니다.`;
+        hasError = true;
+    } else {
+        newErrors.guestCount = ""; // 유효하면 에러 없음
+    }
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length > 0) {
+    if (hasError) { // 하나라도 에러가 있으면 제출 방지
       return;
     }
 
@@ -107,7 +143,6 @@ const Reservation = () => {
       return;
     }
 
-    // state 값들이 있는지 한번 더 확인
     if (!selectedDate || !timeSlot || !tableNumber) {
       alert('예약 정보가 올바르지 않습니다.');
       navigate('/main');
@@ -152,7 +187,6 @@ const Reservation = () => {
     }
   };
 
-  // state 값들이 없으면 로딩 중이거나 리다이렉트 중
   if (!selectedDate || !timeSlot || !tableNumber) {
     return null;
   }
@@ -174,7 +208,7 @@ const Reservation = () => {
                 ? "룸, 창가"
                 : "복도"
               }</p>
-            <p>최대 인원: {getMaxGuestsByTable(tableNumber)}명</p>
+            <p>최대 인원: {maxGuestsForSelectedTable}명</p> {/* 동적으로 최대 인원 표시 */}
           </div>
           <div className={`reservation-input-group ${errors.name ? 'error' : ''}`}>
             <input
@@ -187,7 +221,7 @@ const Reservation = () => {
             {errors.name && (
               <div className="error-message">
                 <i className="error-icon">!</i>
-                {errorMessages.name}
+                {errors.name}
               </div>
             )}
           </div>
@@ -202,7 +236,7 @@ const Reservation = () => {
             {errors.phone && (
               <div className="error-message">
                 <i className="error-icon">!</i>
-                {errorMessages.phone}
+                {errors.phone}
               </div>
             )}
           </div>
@@ -218,7 +252,7 @@ const Reservation = () => {
               {errors.cardNumber && (
                 <div className="error-message card-error">
                   <i className="error-icon">!</i>
-                  {errorMessages.cardNumber}
+                  {errors.cardNumber}
                 </div>
               )}
             </div>
@@ -238,7 +272,7 @@ const Reservation = () => {
               {errors.cardBank && (
                 <div className="error-message bank-error">
                   <i className="error-icon">!</i>
-                  {errorMessages.cardBank}
+                  {errors.cardBank}
                 </div>
               )}
             </div>
@@ -250,13 +284,13 @@ const Reservation = () => {
               placeholder="방문 인원 수"
               value={formData.guestCount}
               onChange={handleChange}
-              min="1"
-              max={getMaxGuestsByTable(tableNumber)}
+              min="1" // HTML5 기본 유효성 검사, 하지만 커스텀 에러 메시지를 위해 JS 로직도 유지
+              max={maxGuestsForSelectedTable} // HTML5 기본 유효성 검사
             />
-            {errors.guestCount && (
+            {errors.guestCount && ( // guestCount 에러 메시지 표시
               <div className="error-message">
                 <i className="error-icon">!</i>
-                {errorMessages.guestCount}
+                {errors.guestCount}
               </div>
             )}
           </div>
@@ -278,4 +312,4 @@ const Reservation = () => {
   );
 };
 
-export default Reservation; 
+export default Reservation;
