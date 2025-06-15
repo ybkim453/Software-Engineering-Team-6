@@ -1,7 +1,7 @@
 .main-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 90vh;
   background-color: #ffffff;
   font-family: 'Noto Sans KR', sans-serif;
   padding-top: 20px;
@@ -11,9 +11,10 @@
 .main-content-wrapper {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  padding: 100px 160px;
+  padding: 0px 20px;
   width: 100%;
   max-width: 1400px;
   box-sizing: border-box;
@@ -49,20 +50,39 @@
   gap: 20px;
 }
 
+.greeting-text {
+  font-weight: bold;
+  font-size: 32px;
+  color: #333;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.restaurant-description {
+  font-size: 16px;
+  color: #555;
+  text-align: left;
+  width: 100%;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+.carousel-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+  margin-right: 30px;
+}
+
 .calendar-section {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0;
-}
-
-.calendar-title {
-  font-size: 28px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 30px;
-  text-align: center;
 }
 
 .calendar-box {
@@ -95,8 +115,8 @@
 }
 
 .calendar-header .today-button:hover {
-  background-color: transparent; /* 호버 시 배경색은 투명하게 유지 */
-  color: #1541bb; /* 호버 시 텍스트 더 진한 파란색 */
+  background-color: transparent;
+  color: #1541bb;
 }
 
 .month-navigator {
@@ -115,7 +135,7 @@
 }
 
 .month-navigator button:hover:not(:disabled) {
-  color: #2962ff; /* 대표색 */
+  color: #2962ff;
 }
 .month-navigator button:disabled {
   color: #ccc;
@@ -152,23 +172,21 @@
 .calendar-day {
   width: 40px;
   height: 40px;
-  line-height: 50px;
+  line-height: 40px;
   border-radius: 15px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; /* transition 속성에 border-color 추가 */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   font-size: 16px;
   color: #333;
-  display: flex; /* flex로 변경하여 내부 텍스트를 중앙 정렬 */
+  display: flex;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box; /* 패딩, 보더 포함하여 너비/높이 계산 */
-  border: 1px solid transparent; /* 기본 투명 테두리 */
+  box-sizing: border-box;
+  border: 1px solid transparent;
 }
 
-/* 호버 시 연한 회색 사각형 */
 .calendar-day:hover:not(.selected-day):not(.other-month):not(.disabled) {
-  background-color: #f0f0f0; /* 연한 회색 */
-  /* border: 1px solid #e0e0e0; */ /* 필요시 호버시 테두리 추가 */
+  background-color: #f0f0f0;
 }
 
 .calendar-day.other-month {
@@ -181,17 +199,14 @@
   background-color: transparent;
 }
 
-/* "오늘" 날짜 텍스트 파란색 */
 .calendar-day.today-text {
-  color: #2962ff; /* 대표 파란색 */
+  color: #2962ff;
   font-weight: 600;
 }
 
-/* 선택된 날짜 - 연한 파랑 사각형 */
 .calendar-day.selected-day {
-  /* background-color: #e0eaff;  배경색 대신 테두리 위주로 변경 */
-  border: 2px solid #a7c3ff; /* 연한 파랑 테두리 (2px로 두껍게) */
-  color: #2962ff; /* 텍스트는 대표 파란색 */
+  border: 2px solid #a7c3ff;
+  color: #2962ff;
   font-weight: 600;
 }
 
@@ -218,19 +233,17 @@
   cursor: default;
 }
 
-/* 선택 불가능한 (예약 꽉 찬 날 포함) 비활성화된 요소 */
 .calendar-day.disabled {
-  color: #c0c0c0; /* 회색 텍스트 */
-  background-color: transparent; /* 배경색 제거 */
+  color: #c0c0c0;
+  background-color: transparent;
   cursor: default;
-  border: 1px solid transparent; /* 테두리도 제거 */
+  border: 1px solid transparent;
 }
 
 .calendar-day.disabled:hover {
-  background-color: transparent; /* 호버 시에도 배경색 없음 */
+  background-color: transparent;
 }
 
-/* 푸터 하단 고정 */
 .footer {
   margin-top: auto;
   width: 100%;
@@ -243,7 +256,6 @@
   box-sizing: border-box;
 }
 
-/* 미디어 쿼리 - 캐러셀과 캘린더 레이아웃 변경 */
 @media (max-width: 900px) {
   .content-row {
     flex-direction: column;
@@ -256,9 +268,9 @@
     width: 100%;
   }
 
-  .carousel-container {
-    width: 100%;
-    max-width: 600px;
+  .carousel-text-container {
+    margin-right: 0;
+    margin-bottom: 30px;
   }
 }
 

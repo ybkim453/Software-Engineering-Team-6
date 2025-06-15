@@ -19,10 +19,9 @@ const MainPage = () => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // 최대 예약 가능 날짜 (오늘 + 30일) 계산
   const maxReservationDate = new Date();
   maxReservationDate.setDate(today.getDate() + 30);
-  maxReservationDate.setHours(0, 0, 0, 0); // 시간 초기화
+  maxReservationDate.setHours(0, 0, 0, 0);
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -53,12 +52,10 @@ const MainPage = () => {
   }, [currentMonth]);
 
   const handleDayClick = (date) => {
-    // 오늘 이전이거나 최대 예약 가능 날짜를 초과하면 클릭 불가
     if (isBeforeToday(date) || date > maxReservationDate) {
       return;
     }
 
-    // 예약이 꽉 찬 날짜는 클릭 불가
     const dateString = formatDateToYYYYMMDD(date);
     const availability = reservationAvailability[dateString];
     if (availability && !availability.lunch && !availability.dinner) {
@@ -70,7 +67,6 @@ const MainPage = () => {
 
   const handleConfirm = () => {
     if (selectedDate) {
-      // 선택된 날짜가 오늘 이전이거나 최대 예약 가능 날짜를 초과하는지 다시 확인
       if (isBeforeToday(selectedDate)) {
         alert('오늘 이전의 날짜는 예약할 수 없습니다.');
         return;
@@ -103,7 +99,6 @@ const MainPage = () => {
     prevMonthDate.setMonth(currentMonth.getMonth() - 1);
     const firstDayOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     
-    // 현재 달(today가 속한 달) 이전으로 이동 방지
     if (prevMonthDate.getFullYear() < firstDayOfCurrentMonth.getFullYear() || 
         (prevMonthDate.getFullYear() === firstDayOfCurrentMonth.getFullYear() && 
          prevMonthDate.getMonth() < firstDayOfCurrentMonth.getMonth())) {
@@ -116,7 +111,6 @@ const MainPage = () => {
     const nextMonthDate = new Date(currentMonth);
     nextMonthDate.setMonth(currentMonth.getMonth() + 1);
     
-    // 최대 예약 가능 날짜가 속한 달의 첫째 날을 기준으로 다음 달 이동을 제한
     const maxAllowedMonthForNavigation = new Date(maxReservationDate.getFullYear(), maxReservationDate.getMonth(), 1);
 
     if (nextMonthDate > maxAllowedMonthForNavigation) {
@@ -130,10 +124,8 @@ const MainPage = () => {
     setSelectedDate(today);
   };
   
-  // 이전 달/다음 달 이동 버튼 활성화/비활성화 로직
   const isPrevMonthDisabled = (currentMonth.getFullYear() === today.getFullYear() && currentMonth.getMonth() === today.getMonth());
   
-  // 현재 달이 최대 예약 가능 날짜가 속한 달과 같거나 그 이후면 다음 달 버튼 비활성화
   const isNextMonthDisabled = (currentMonth.getFullYear() > maxReservationDate.getFullYear() ||
     (currentMonth.getFullYear() === maxReservationDate.getFullYear() && currentMonth.getMonth() >= maxReservationDate.getMonth()));
 
@@ -149,7 +141,6 @@ const MainPage = () => {
 
     const days = [];
 
-    // 이전 달의 날짜 채우기 (달력 첫 줄 공백)
     for (let i = 0; i < startingDayOfWeek; i++) {
       const prevMonthDay = new Date(year, month, -(startingDayOfWeek - i - 1)).getDate();
       days.push(
@@ -159,14 +150,12 @@ const MainPage = () => {
       );
     }
 
-    // 현재 달의 날짜
     for (let day = 1; day <= numDaysInMonth; day++) {
       const currentDate = new Date(year, month, day);
       currentDate.setHours(0,0,0,0);
 
       const isSelected = areDatesEqual(currentDate, selectedDate);
       const isDayToday = isToday(currentDate);
-      // 오늘 이전이거나 최대 예약 가능 날짜를 초과하면 비활성화
       const isDisabled = isBeforeToday(currentDate) || currentDate > maxReservationDate; 
 
       const dateString = formatDateToYYYYMMDD(currentDate);
@@ -176,7 +165,6 @@ const MainPage = () => {
       let dayClasses = "calendar-day";
       if (isDayToday) dayClasses += " today-text";
       if (isSelected) dayClasses += " selected-day";
-      // 비활성화 조건에 최대 예약 가능 날짜 초과 여부 추가
       if (isDisabled || isFullyBooked) dayClasses += " disabled";
 
       days.push(
@@ -190,13 +178,10 @@ const MainPage = () => {
       );
     }
 
-    // 다음 달의 날짜 채우기 (달력 마지막 줄 공백)
     const totalCells = 42;
     const remainingDays = totalCells - days.length;
     for (let i = 1; i <= remainingDays; i++) {
       const nextMonthDate = new Date(year, month + 1, i);
-      // 다음 달 날짜도 최대 예약 가능 날짜를 초과하는지 확인하여 비활성화 여부를 고려할 수 있지만,
-      // `goToNextMonth` 함수에서 이미 달 이동 자체를 제한하므로 여기서는 단순 렌더링만 합니다.
       days.push(
         <div key={`next-${i}`} className="calendar-day other-month">
           {nextMonthDate.getDate()}
@@ -211,9 +196,12 @@ const MainPage = () => {
     <div className="main-page">
       <Header />
       <div className="main-content-wrapper">
-        <ImageCarousel />
+        <div className="carousel-text-container">
+          <p className="greeting-text">안녕하세요<br />Software Restaurant입니다.</p>
+          <ImageCarousel />
+          <p className="restaurant-description">고급스러운 다이닝 경험을 제공하는 레스토랑입니다.<br />날짜를 선택해 예약할 수 있습니다.</p>
+        </div>
         <div className="calendar-section">
-          <div className="calendar-title">날짜 선택</div>
           <div className="calendar-box">
             <div className="calendar-header">
               <span className="today-button" onClick={goToToday}>
@@ -255,7 +243,6 @@ const MainPage = () => {
             <button
               className="confirm-button"
               onClick={handleConfirm}
-              // 선택된 날짜가 없거나, 예약이 꽉 찼거나, 최대 예약 가능 날짜를 초과하면 버튼 비활성화
               disabled={
                 !selectedDate || 
                 (reservationAvailability[formatDateToYYYYMMDD(selectedDate)] && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].lunch && !reservationAvailability[formatDateToYYYYMMDD(selectedDate)].dinner) ||
