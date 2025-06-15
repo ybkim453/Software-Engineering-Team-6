@@ -11,47 +11,47 @@ const ReservationCard = ({ reservation, onCancelClick }) => {
   const reservationDate = parseYYYYMMDDToDate(reservation.reservation_date);
   
   let buttonText;
-  let buttonClass;
+  let buttonClassModifier;
   let buttonAction;
   let buttonDisabled;
 
   if (reservation.status === 'confirmed') {
       buttonText = "예약 확정";
-      buttonClass = "status-confirmed";
+      buttonClassModifier = "status-confirmed";
       buttonDisabled = true;
       buttonAction = null;
   } else if (reservation.status === 'cancellable') {
       buttonText = "예약 취소";
-      buttonClass = "status-cancel";
+      buttonClassModifier = "status-cancel";
       buttonAction = () => onCancelClick(reservation);
       buttonDisabled = false;
   } else if (reservation.status === 'unavailable') {
       buttonText = "취소 불가";
-      buttonClass = "status-unavailable";
+      buttonClassModifier = "status-unavailable";
       buttonDisabled = true;
       buttonAction = null;
   } else {
       buttonText = "상태 알 수 없음";
-      buttonClass = "status-default";
+      buttonClassModifier = "status-default";
       buttonDisabled = true;
       buttonAction = null;
   }
 
   return (
     <div className="reservation-card">
-      <div className="reservation-image-wrapper">
-        <img src={restaurantInteriorImage} alt="Restaurant Table" className="reservation-image" />
+      <div className="reservation-card__image-wrapper">
+        <img src={restaurantInteriorImage} alt="Restaurant Table" className="reservation-card__image" />
       </div>
-      <div className="reservation-details-content">
-        <div className="reservation-date-display">{reservation.reservation_date.replace(/-/g, ' ')}</div>
-        <div className="reservation-info-line">
+      <div className="reservation-card__details-content">
+        <div className="reservation-card__date-display">{reservation.reservation_date.replace(/-/g, ' ')}</div>
+        <div className="reservation-card__info-line">
             {reservation.time_slot === 'lunch' ? '점심' : '저녁'} - {reservation.table_number}번 테이블
         </div>
-        <div className="reservation-info-line">예약자명: {reservation.customer_name}</div>
-        <div className="reservation-info-line">예약인원: {reservation.guest_count}명</div>
+        <div className="reservation-card__info-line">예약자명: {reservation.customer_name}</div>
+        <div className="reservation-card__info-line">예약인원: {reservation.guest_count}명</div>
       </div>
       <button
-        className={`reservation-action-button ${buttonClass}`}
+        className={`reservation-card__action-button reservation-card__action-button--${buttonClassModifier}`}
         onClick={buttonAction}
         disabled={buttonDisabled}
       >
@@ -63,18 +63,20 @@ const ReservationCard = ({ reservation, onCancelClick }) => {
 
 const ReservationListPage = () => {
   const today = new Date();
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth() + 1;
+  
+  // 현재 달의 첫째 날
+  const defaultStartDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  const initialStartDateFormatted = `${defaultStartDate.getFullYear()}-${(defaultStartDate.getMonth() + 1).toString().padStart(2, '0')}-01`;
 
-  const firstDayOfMonth = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-01`;
-  const lastDayOfMonth = new Date(currentYear, currentMonth, 0).getDate();
-  const lastDayOfMonthFormatted = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${lastDayOfMonth.toString().padStart(2, '0')}`;
+  // 다음 달의 마지막 날
+  const nextMonthLastDay = new Date(today.getFullYear(), today.getMonth() + 2, 0); // 다음 달의 0번째 날 = 이번 달의 마지막 날
+  const initialEndDateFormatted = `${nextMonthLastDay.getFullYear()}-${(nextMonthLastDay.getMonth() + 1).toString().padStart(2, '0')}-${nextMonthLastDay.getDate().toString().padStart(2, '0')}`;
 
   const [reservations, setReservations] = useState([]);
   const [filterConfirmed, setFilterConfirmed] = useState(false);
   const [filterCancellable, setFilterCancellable] = useState(false);
-  const [startDate, setStartDate] = useState(firstDayOfMonth);
-  const [endDate, setEndDate] = useState(lastDayOfMonthFormatted);
+  const [startDate, setStartDate] = useState(initialStartDateFormatted);
+  const [endDate, setEndDate] = useState(initialEndDateFormatted);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -144,9 +146,9 @@ const ReservationListPage = () => {
 
   const handleCancelButtonClick = (reservation) => {
     setSelectedReservationForCancel({
-      date: reservation.reservation_date, // 'reservation_date' -> 'date'로 변환
-      timeSlot: reservation.time_slot,   // 'time_slot' -> 'timeSlot'으로 변환
-      tableNumber: reservation.table_number, // 'table_number' -> 'tableNumber'로 변환
+      date: reservation.reservation_date,
+      timeSlot: reservation.time_slot,
+      tableNumber: reservation.table_number,
     });
     setShowCancelModal(true);
   };
@@ -178,44 +180,44 @@ const ReservationListPage = () => {
   return (
     <div className="reservation-list-page">
       <Header />
-      <div className="main-content-wrapper">
-        <div className="reservation-list-title">예약 목록</div>
+      <div className="reservation-list-page__main-content-wrapper">
+        <div className="reservation-list-page__title">예약 목록</div>
 
         <div className="reservation-filters-sidebar">
-          <div className="filter-group">
-            <h3 className="filter-title">예약 종류</h3>
-            <label className="custom-checkbox">
+          <div className="reservation-filters-sidebar__group">
+            <h3 className="reservation-filters-sidebar__title">예약 종류</h3>
+            <label className="reservation-filters-sidebar__checkbox">
               <input
                 type="checkbox"
                 checked={filterConfirmed}
                 onChange={(e) => handleFilterChange("확정", e.target.checked)}
               />
-              <span className="checkmark"></span>
+              <span className="reservation-filters-sidebar__checkmark"></span>
               예약 확정
             </label>
-            <label className="custom-checkbox">
+            <label className="reservation-filters-sidebar__checkbox">
               <input
                 type="checkbox"
                 checked={filterCancellable}
                 onChange={(e) => handleFilterChange("취소가능", e.target.checked)}
               />
-              <span className="checkmark"></span>
+              <span className="reservation-filters-sidebar__checkmark"></span>
               취소 가능
             </label>
           </div>
 
-          <div className="filter-divider"></div>
+          <div className="reservation-filters-sidebar__divider"></div>
 
-          <div className="filter-group">
-            <h3 className="filter-title">예약 일자</h3>
-            <div className="date-range-inputs">
+          <div className="reservation-filters-sidebar__group">
+            <h3 className="reservation-filters-sidebar__title">예약 일자</h3>
+            <div className="reservation-filters-sidebar__date-range-inputs">
                 <input
                     type="month"
                     value={startDate ? `${new Date(startDate).getFullYear()}-${(new Date(startDate).getMonth() + 1).toString().padStart(2, '0')}` : ''}
                     onChange={(e) => handleDateFilterChange('start', e.target.value + '-01')}
-                    className="date-input-month"
+                    className="reservation-filters-sidebar__date-input"
                 />
-                <span className="date-separator"></span>
+                <span className="reservation-filters-sidebar__date-separator"></span>
                 <input
                     type="month"
                     value={endDate ? `${new Date(endDate).getFullYear()}-${(new Date(endDate).getMonth() + 1).toString().padStart(2, '0')}` : ''}
@@ -226,21 +228,21 @@ const ReservationListPage = () => {
                         const lastDay = new Date(year, month, 0).getDate();
                         handleDateFilterChange('end', `${selectedMonth}-${lastDay}`);
                     }}
-                    className="date-input-month"
+                    className="reservation-filters-sidebar__date-input"
                 />
             </div>
           </div>
         </div>
 
         <div className="reservation-cards-section">
-          {loading && <p className="loading-message">예약 목록을 불러오는 중...</p>}
-          {error && <p className="error-message">{error}</p>}
+          {loading && <p className="message--loading">예약 목록을 불러오는 중...</p>}
+          {error && <p className="message--error">{error}</p>}
           {!loading && !error && reservations.length === 0 && (
-            <p className="no-reservations">현재 예약이 없습니다.</p>
+            <p className="message--no-reservations">현재 예약이 없습니다.</p>
           )}
 
           {!loading && !error && reservations.length > 0 && (
-            <div className="reservation-cards-grid">
+            <div className="reservation-cards-section__grid">
               {reservations.map((reservation) => (
                 <ReservationCard 
                   key={reservation.id} 
@@ -256,7 +258,7 @@ const ReservationListPage = () => {
 
       {showCancelModal && selectedReservationForCancel && (
         <Cancel
-          reservationData={selectedReservationForCancel} // 변환된 데이터를 전달
+          reservationData={selectedReservationForCancel}
           onClose={handleCloseCancelModal}
         />
       )}
