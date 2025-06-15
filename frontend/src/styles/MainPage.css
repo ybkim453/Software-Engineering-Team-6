@@ -1,8 +1,7 @@
-/* MainPage.css */
 .main-page {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  min-height: 100vh;
   background-color: #ffffff;
   font-family: 'Noto Sans KR', sans-serif;
   padding-top: 20px;
