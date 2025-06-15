@@ -1,9 +1,6 @@
-/* src/styles/ReservationListPage.css */
-
-/* 전체 페이지 컨테이너 */
 .reservation-list-page {
     box-sizing: border-box;
-    position: relative; /* 자식 요소들의 absolute 기준 유지 */
+    position: relative;
     width: 100vw;
     min-height: 100vh;
     background: #FFFFFF;
@@ -13,31 +10,27 @@
     align-items: center;
 }
 
-/* Header높이 (필요시 Header 컴포넌트의 실제 높이에 맞게 조정) */
-.app-header {
+.reservation-list-page__header {
     width: 100%;
 }
 
-/* 메인 콘텐츠 래퍼 (Header와 Footer 사이의 실제 내용) */
-.main-content-wrapper {
+.reservation-list-page__main-content-wrapper {
     width: 100%;
     max-width: 1920px;
-    /* Header 높이만큼 유지하고, 그 아래로 콘텐츠 시작 (제목을 이 공간 안에 배치) */
-    padding-top: 150px; /* Header 높이 + 제목이 시작될 여유 공간 (조절됨) */
+    padding-top: 150px;
     display: flex;
-    position: relative; /* reservation-list-title의 absolute 기준 */
-    padding-left: 111px; /* Figma 기준 좌측 여백 */
+    position: relative;
+    padding-left: 111px;
     box-sizing: border-box;
     flex-grow: 1;
-    gap: 70px; /* 사이드바와 카드 섹션 간 간격 */
-    align-items: flex-start; /* flex 아이템들을 상단에 정렬 */
+    gap: 70px;
+    align-items: flex-start;
 }
 
-/* 페이지 제목: 예약 목록 */
-.reservation-list-title {
-    position: absolute; /* absolute로 설정 */
+.reservation-list-page__title {
+    position: absolute;
     left: 111px;
-    top: 120px; /* main-content-wrapper의 padding-top (150px)보다 작은 값으로, Header 아래에 위치 */
+    top: 120px;
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -45,43 +38,39 @@
     line-height: 54px;
     color: #000000;
     white-space: nowrap;
-    z-index: 10; /* 다른 요소 위에 표시되도록 z-index 추가 */
+    z-index: 10;
 }
 
-
-
-/* 필터 사이드바 */
 .reservation-filters-sidebar {
     width: 260px;
-    margin-top: 50px; /* .main-content-wrapper 내부에서 sidebar의 시작 위치를 결정 */
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
 }
 
-.filter-group {
+.reservation-filters-sidebar__group {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.filter-title {
+.reservation-filters-sidebar__title {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
     color: #000000;
-    margin-bottom: 15px; /* 체크박스와의 간격 */
+    margin-bottom: 15px;
 }
 
-/* 커스텀 체크박스 스타일 */
-.custom-checkbox {
+.reservation-filters-sidebar__checkbox {
     display: block;
     position: relative;
-    padding-left: 31px; /* 체크박스와 텍스트 사이 간격 */
+    padding-left: 31px;
     margin-bottom: 10px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
@@ -96,7 +85,7 @@
     user-select: none;
 }
 
-.custom-checkbox input {
+.reservation-filters-sidebar__checkbox input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -104,7 +93,7 @@
     width: 0;
 }
 
-.checkmark {
+.reservation-filters-sidebar__checkmark {
     position: absolute;
     top: 50%;
     left: 0;
@@ -116,22 +105,22 @@
     background-color: #fff;
 }
 
-.custom-checkbox input:checked ~ .checkmark {
-    background-color: #2962FF; /* 체크 시 색상 */
-    border-color: #2962FF; /* 체크 시 테두리 색상 */
+.reservation-filters-sidebar__checkbox input:checked ~ .reservation-filters-sidebar__checkmark {
+    background-color: #2962FF;
+    border-color: #2962FF;
 }
 
-.checkmark:after {
+.reservation-filters-sidebar__checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-.custom-checkbox input:checked ~ .checkmark:after {
+.reservation-filters-sidebar__checkbox input:checked ~ .reservation-filters-sidebar__checkmark:after {
     display: block;
 }
 
-.custom-checkbox .checkmark:after {
+.reservation-filters-sidebar__checkmark:after {
     left: 4px;
     top: 0px;
     width: 5px;
@@ -143,23 +132,21 @@
     transform: rotate(45deg);
 }
 
-/* 필터 구분선 */
-.filter-divider {
+.reservation-filters-sidebar__divider {
     width: 260px;
     border-top: 2px solid #E6E6E6;
-    margin: 20px 0; /* 위아래 간격 */
+    margin: 20px 0;
 }
 
-/* 날짜 필터 인풋 */
-.date-range-inputs {
+.reservation-filters-sidebar__date-range-inputs {
     display: flex;
     align-items: center;
-    width: 100%; /* 부모 너비에 맞춤 */
-    gap: 10px; /* 인풋 사이 간격 */
+    width: 100%;
+    gap: 10px;
 }
 
-.date-input-month {
-    flex: 1; /* 공간 균등 분할 */
+.reservation-filters-sidebar__date-input {
+    flex: 1;
     height: 40px;
     background: #ECECEC;
     border: none;
@@ -171,17 +158,16 @@
     font-size: 14px;
     line-height: 17px;
     color: #555555;
-    box-sizing: border-box; /* 패딩 포함 */
+    box-sizing: border-box;
 }
 
-.date-separator {
+.reservation-filters-sidebar__date-separator {
     width: 14px;
     height: 0px;
     border-top: 2px solid #555555;
-    margin: 0 5px; /* 분리선 좌우 간격 */
+    margin: 0 5px;
 }
 
-/* 예약 카드 목록 섹션 */
 .reservation-cards-section {
     flex-grow: 1;
     margin-top: 50px;
@@ -193,15 +179,14 @@
     gap: 30px;
 }
 
-.reservation-cards-grid {
+.reservation-cards-section__grid {
     display: flex;
     flex-direction: column;
-    gap: 30px; /* 카드 사이 간격 */
+    gap: 30px;
     width: 100%;
     align-items: center;
 }
 
-/* 예약 카드 스타일 */
 .reservation-card {
     box-sizing: border-box;
     width: 822px;
@@ -210,45 +195,45 @@
     border: 1px solid #9A9A9A;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
-    display: flex; /* 이미지와 텍스트를 가로로 배치 */
-    overflow: hidden; /* 모서리 둥글게 */
-    position: relative; /* 버튼의 absolute 위치 기준 */
+    display: flex;
+    overflow: hidden;
+    position: relative;
 }
 
-.reservation-image-wrapper {
+.reservation-card__image-wrapper {
     width: 230px;
     height: 230px;
-    border-radius: 15px 0px 0px 15px; /* 왼쪽만 둥글게 */
+    border-radius: 15px 0px 0px 15px;
     overflow: hidden;
 }
 
-.reservation-image {
+.reservation-card__image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 이미지 비율 유지하며 채우기 */
+    object-fit: cover;
 }
 
-.reservation-details-content {
-    flex-grow: 1; /* 남은 공간 채우기 */
-    padding: 31px 20px 20px 30px; /* Figma 기준 텍스트 시작 위치에 맞춤 */
+.reservation-card__details-content {
+    flex-grow: 1;
+    padding: 31px 20px 20px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: left;
-    gap: 15px; /* 정보 줄 사이 간격 */
+    gap: 15px;
 }
 
-.reservation-date-display {
+.reservation-card__date-display {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
     color: #000000;
-    margin-bottom: 5px; /* 아래 정보와의 간격 */
+    margin-bottom: 5px;
 }
 
-.reservation-info-line {
+.reservation-card__info-line {
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -257,8 +242,7 @@
     color: #000000;
 }
 
-/* 예약 확정/취소/취소 불가 버튼 */
-.reservation-action-button {
+.reservation-card__action-button {
     position: absolute;
     width: 161px;
     height: 41px;
@@ -279,28 +263,27 @@
     transition: background-color 0.2s ease-in-out;
 }
 
-.reservation-action-button.status-confirmed {
-    background: #ACACAC; /* 예약 확정 (회색) */
-    cursor: default; /* 클릭 불가 */
+.reservation-card__action-button--status-confirmed {
+    background: #ACACAC;
+    cursor: default;
 }
 
-.reservation-action-button.status-unavailable {
-    background: #ACACAC; /* 취소 불가 (회색) */
-    cursor: default; /* 클릭 불가 */
+.reservation-card__action-button--status-unavailable {
+    background: #ACACAC;
+    cursor: default;
 }
 
-.reservation-action-button.status-cancel {
-    background: #2962FF; /* 예약 취소 (파란색) */
+.reservation-card__action-button--status-cancel {
+    background: #2962FF;
 }
 
-.reservation-action-button.status-cancel:hover:not(:disabled) {
+.reservation-card__action-button--status-cancel:hover:not(:disabled) {
     background-color: #1a4da3;
 }
 
-/* 로딩 및 에러 메시지 */
-.loading-message,
-.error-message,
-.no-reservations {
+.message--loading,
+.message--error,
+.message--no-reservations {
     font-family: 'Inter', sans-serif;
     font-size: 24px;
     color: #555;
