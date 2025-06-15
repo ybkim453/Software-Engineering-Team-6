@@ -209,7 +209,7 @@ const SignupPage = () => {
           <input
             type="text"
             name="userid"
-            placeholder="아이디"
+            placeholder="아이디 (영문, 숫자 조합 6자 이상)"
             value={formData.userid}
             onChange={handleChange}
           />
@@ -227,7 +227,7 @@ const SignupPage = () => {
           <input
             type="password"
             name="password"
-            placeholder="비밀번호"
+            placeholder="비밀번호 (영문, 숫자, 특수문자 조합 8자 이상)"
             value={formData.password}
             onChange={handleChange}
           />
